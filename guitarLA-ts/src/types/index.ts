@@ -6,3 +6,14 @@ export type Guitar={
     price:number
 }
 
+export type CartItem = Guitar & {
+    //herencia de Guitar
+    quantity:number
+}
+
+// export type GuitarID = Guitar['id']
+
+// export interface CartItem extends Guitar {
+//     quantity:number
+// }
+
