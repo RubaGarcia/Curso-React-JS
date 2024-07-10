@@ -1,25 +1,42 @@
 import { categories } from "../data/categories"
-import { useState } from "react"
+import{ v4 as uuidv4} from 'uuid'
+import React, { Dispatch, useState, useEffect } from "react"
 import type {Activity} from"../types" 
+import type { ActivityActions, ActivityState } from "../reducers/activity-reducer"
 
-export default function Form() {
+type FormProps = {
+  dispatch:Dispatch<ActivityActions>
+  state:ActivityState
+}
 
-  const[activity, setActivity]=useState<Activity>({
-    category:1,
-    name:'',
-    calories:0
-  })
+const initialState :Activity = {
+  id: uuidv4(),
+  category:1,
+  name:'',
+  calories:0
+}
 
+export default function Form({dispatch, state}:FormProps) {
+
+  const[activity, setActivity]=useState<Activity>(initialState)
+
+  useEffect(()=>{
+    if(state.activeId){
+      console.log(state.activeId)
+      const selectedActivity = state.activities.filter(stateActivity => stateActivity.id === state.activeId)[0]
+      setActivity(selectedActivity)
+    }
+  },[state.activeId])
 
   const handleChange=(e : React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>)=>{
 
-    const inNumberField = ['category', 'calories'].includes(e.target.id)
+    const isNumberField = ['category', 'calories'].includes(e.target.id)
 
-    // console.log(inNumberField)
+    console.log(isNumberField)
 
     setActivity({
       ...activity,
-      [e.target.id]:e.target.value
+      [e.target.id]:isNumberField ? +e.target.value: e.target.value
     })
    
   }
@@ -29,9 +46,24 @@ export default function Form() {
     return name.trim() !== '' && calories>0
   }
 
+  const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault
+
+    dispatch({type:'save-activity', payload:{newActivity:activity}})
+
+    setActivity({
+      ...initialState,
+      id:uuidv4()
+    })
+  }
+
+
 
   return (
-    <form className="space-y-5 bg-white shadow p-10 rounded-lg" >
+    <form 
+      className="space-y-5 bg-white shadow p-10 rounded-lg" 
+      onSubmit={handleSubmit}
+    >
       <div className="grid grid-cols-1 gap-3">
         <label htmlFor="category" className="font-bold">categoria:</label>
         <select 
@@ -57,7 +89,7 @@ export default function Form() {
           id="name"
           type="text"
           className="border border-slate-300 p-2 rounded-lg"
-          placeholder="patatas fritas"
+          placeholder="Ej. Comida, Jugo de Naranja, Ensalada, Ejercicio, Pesas, Bicicleta"
           value={activity.name}
           onChange={handleChange}
 
@@ -70,7 +102,7 @@ export default function Form() {
             id="calories"
             type="number"
             className="border border-slate-300 p-2 rounded-lg"
-            placeholder="Ej.987654321"
+            placeholder="Calorias. ej. 300 o 500"
             value={activity.calories}
             onChange={handleChange}
 
