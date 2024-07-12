@@ -1,24 +1,40 @@
 import { useState, ChangeEvent, useMemo } from "react"
+import { useBudget } from "../hooks/useBudget"
 
 
 export default function BudgetForm() {
 
     const[budget,setBudget] = useState(0)
+    const{dispatch} = useBudget()
+
+
+    // useEffect(() => {
+    //     if(state.editingId){
+    //         const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0]
+    //         setExpense(editingExpense)
+    //     }
+    // },[state.editingId])
+
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         // e.preventDefault()
         setBudget(e.target.valueAsNumber)
-        console.log(e.target.value)
+        // console.log(e.target.value)
     }
 
     const isValid = useMemo(() => {
         return isNaN(budget) || budget <= 0
     }, [budget])
 
+    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        dispatch({type:'add-budget', payload:{budget}})
+    }
+
 
 
     return (
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="flex flex-col space-y-5">
                 <label htmlFor="budget" className="text-4xl text-blue-600 font-bold text-center">
                     Definir Presupuesto
@@ -43,3 +59,7 @@ export default function BudgetForm() {
 
     )
 }
+// function setExpense(editingExpense: Expense) {
+//     throw new Error("Function not implemented.")
+// }
+
