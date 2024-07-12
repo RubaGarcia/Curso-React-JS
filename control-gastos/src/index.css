@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body {
+  background-color: #0f172a; /* Un tono oscuro de gris */
+  color: white; /* Color del texto */
+}
+
+
 /*** SWIPE LIST OVERRIDES **/
 .swipeable-list-item__leading-actions, 
 .swipeable-list-item__trailing-actions {
-  @apply text-white text-lg uppercase font-bold;
+  @apply text-white text-lg uppercase font-thin;
 }
 .swipeable-list-item__leading-actions{
   @apply bg-blue-600;

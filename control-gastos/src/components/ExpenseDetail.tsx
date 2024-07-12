@@ -57,14 +57,14 @@ export default function ExpenseDetail({expense}:ExpenseDetailProps) {
         >
 
 
-            <div className="g-white shadow-lg p-5 w-full border-b border-gray-200 flex gap-5 items-center">
+            <div className="g-white shadow-lg p-5 w-full border-b border-gray-200 flex gap-5 items-center dark:bg-gray-800">
                 <div>
                     <img src={`/icono_${categoryInfo.icon}.svg`} alt="icono" className="w-20" />
                 </div>
                 <div className="flex-1 space-y-2">
-                    <p className="text-sm font-bold uppercase text-slate-500">{categoryInfo.name}</p>
-                    <p>{expense.expenseName}</p>
-                    <p className="text-slate-600 text-sm">{formatDate(expense.date!.toString())}</p>
+                    <p className="text-sm font-bold uppercase text-slate-500 dark:text-slate-400">{categoryInfo.name}</p>
+                    <p className="text-black dark:text-white">{expense.expenseName}</p>
+                    <p className="text-slate-600 text-sm dark:text-slate-300">{formatDate(expense.date!.toString())}</p>
                 </div>
 
                 <AmountDisplay 

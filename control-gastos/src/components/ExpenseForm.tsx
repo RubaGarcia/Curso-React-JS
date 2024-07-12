@@ -84,9 +84,9 @@ export default function ExpenseForm() {
     setPreviousAmount(0)
   }
   return (
-    <form className="space-y-5" onSubmit={handleSubmit}>
+    <form className="space-y-5 dark:bg-gray-800" onSubmit={handleSubmit}>
         <legend
-            className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2"
+            className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2 "
         >
            {state.editingId ?'Guardar cambios': 'Nuevo gasto'}
         </legend>
@@ -104,7 +104,7 @@ export default function ExpenseForm() {
                 type="text"
                 id='expenseName'
                 placeholder="Añade el nombre del gasto"
-                className="bg-slate-100 p-2"
+                className="bg-slate-100 p-2 dark:bg-gray-800"
                 name="expenseName" 
                 value={expense.expenseName} 
                 onChange={handleChange}  
@@ -121,7 +121,7 @@ export default function ExpenseForm() {
                 type="number"
                 id="amount"
                 placeholder="Añade la cantidad del gasto"
-                className="bg-slate-100 p-2"
+                className="bg-slate-100 p-2 dark:bg-gray-800"
                 name="amount"   
                 value={expense.amount} 
                 onChange={handleChange}
@@ -137,7 +137,7 @@ export default function ExpenseForm() {
             <select
                 id="category"
                 //placeholder="añade la cantidad del gasto"
-                className="bg-slate-100 p-2"
+                className="bg-slate-100 p-2 dark:bg-gray-800"
                 name="category"
                 value={expense.category}
                 onChange={handleChange}
@@ -160,7 +160,7 @@ export default function ExpenseForm() {
                 Fecha Gasto:
             </label>
             <DatePicker
-                className="bg-slate-100 p-2 border-0"
+                className="bg-slate-100 p-2 border-0 dark:bg-gray-800"
                 value={expense.date}
                 onChange={handleChangeDate}
             />
