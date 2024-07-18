@@ -17,7 +17,7 @@ router.post("/",
     body('name')
                 .notEmpty().withMessage('Name is required'),
     body('price')
-                .isNumeric().withMessage('Valir no valido')
+                .isNumeric().withMessage('Price must be a number')
                 .notEmpty().withMessage('Price is required')
                 .custom(value=> value > 0).withMessage('Price must be greater than 0'),
     handleInputErrors,
@@ -28,7 +28,7 @@ router.put("/:id",
     body('name')
                 .notEmpty().withMessage('Name is required'),
     body('price')
-                .isNumeric().withMessage('Valir no valido')
+                .isNumeric().withMessage('Price must be a number')
                 .notEmpty().withMessage('Price is required')
                 .custom(value=> value > 0).withMessage('Price must be greater than 0'),
     body('availability')
