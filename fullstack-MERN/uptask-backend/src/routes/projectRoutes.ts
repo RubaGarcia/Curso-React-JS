@@ -6,11 +6,13 @@ import Task from "../models/Task";
 import { TaskController } from "../controllers/TaskController";
 import { projectExists } from "../middleware/project";
 import { taskBelongsToProject, taskExists } from "../middleware/task";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
 router.post(
   "/",
+  authenticate,
   body("projectName").notEmpty().withMessage("Project name is required"),
   body("clientName").notEmpty().withMessage("Client name is required"),
   body("description").notEmpty().withMessage("Description is required"),
